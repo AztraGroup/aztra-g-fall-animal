@@ -12,6 +12,7 @@
   };
   const toggleTheme = ()=>setTheme(document.body.classList.contains('az-theme-dark')?'light':'dark');
   setTheme(localStorage.getItem('aztra_theme')||'light');
+  window.Aztra = {api,setTheme,toggleTheme};
 
   const previewEl = qs('#aztra-preview');
   if(previewEl){
@@ -50,7 +51,10 @@
 
     if(act==='save-webhook'){
       const url = qs('#aztra-webhook')?.value.trim();
-      if(url) localStorage.setItem('aztra_webhook', url);
+      if(url){
+        localStorage.setItem('aztra_webhook', url);
+        await api('/webhook',{method:'POST',body:new URLSearchParams({url})});
+      }
       window.location.href = AZTRA_CFG.chat_url || '/';
     }
   });

@@ -25,6 +25,9 @@ body{background:var(--az-bg);color:var(--az-text);font-family:Inter,system-ui,sa
 .az-chat-layout{display:grid;grid-template-columns:200px 1fr;gap:var(--az-gap);}
 .az-sidebar{display:flex;flex-direction:column;gap:8px;}
 .az-chat-log{border:1px solid var(--az-input-bd);min-height:200px;padding:var(--az-gap);margin-bottom:var(--az-gap);overflow:auto;}
+.az-chat-msg{margin-bottom:10px;}
+.az-chat-msg .az-bubble{background:var(--az-card-bg);border:1px solid var(--az-input-bd);padding:8px 12px;border-radius:12px;}
+.az-chat-msg .az-file{display:block;margin-top:6px;}
 .az-btn{background:#2b34ff;color:#fff;border:none;border-radius:10px;padding:10px 14px;cursor:pointer;}
 .az-btn.az-primary{background:var(--az-btn-bg);}
 .az-field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}

@@ -33,8 +33,8 @@ class Aztra_Shortcodes {
     <?php
   }
 
-  public static function login($atts=[]){
-    wp_enqueue_style('aztra-app'); wp_enqueue_script('aztra-app');
+    public static function login($atts=[]){
+      wp_enqueue_style('aztra-app'); wp_enqueue_script('aztra-app');
     ob_start(); ?>
     <div class="az-card">
       <h2>Login</h2>
@@ -85,6 +85,10 @@ class Aztra_Shortcodes {
       <div class="az-card">
         <h3>Builder</h3>
         <form id="aztra-form">
+          <div class="az-field"><label>Título</label><input name="title" id="title"></div>
+          <div class="az-field"><label>Descrição</label><textarea name="description" id="description" rows="3"></textarea></div>
+          <div class="az-field"><label>Tags</label><input name="tags" id="tags" placeholder="tag1, tag2"></div>
+          <div class="az-field"><label>URL de Referência</label><input type="url" name="reference_url" id="reference_url"></div>
           <div class="az-grid-2">
             <div class="az-field"><label>Animal</label><select id="animal" name="animal"></select></div>
             <div class="az-field"><label>Scenario</label><select id="scenario" name="scenario"></select></div>
@@ -162,9 +166,9 @@ class Aztra_Shortcodes {
     return ob_get_clean();
   }
 
-  public static function chat($atts=[]){
-    if(!is_user_logged_in()){ return '<p>Please log in to use the chat.</p>'; }
-    wp_enqueue_style('aztra-app'); wp_enqueue_script('aztra-app');
+    public static function chat($atts=[]){
+      if(!is_user_logged_in()){ return '<p>Please log in to use the chat.</p>'; }
+      wp_enqueue_style('aztra-app'); wp_enqueue_script('aztra-app'); wp_enqueue_script('aztra-chat');
     ob_start();
     self::render_header(); ?>
     <div class="az-chat-layout">

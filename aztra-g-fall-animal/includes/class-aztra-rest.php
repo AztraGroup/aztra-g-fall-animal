@@ -18,6 +18,23 @@ class Aztra_REST {
       'permission_callback'=>'__return_true',
       'callback'=>[__CLASS__,'lists'],
     ]);
+
+    register_rest_route('aztra/v1','/webhook',[
+      'methods'=>'POST',
+      'permission_callback'=>function(){ return is_user_logged_in() && wp_verify_nonce($_REQUEST['_wpnonce'] ?? '', 'wp_rest'); },
+      'callback'=>[__CLASS__,'save_webhook'],
+    ]);
+
+    register_rest_route('aztra/v1','/chat/send',[
+      'methods'=>'POST',
+      'permission_callback'=>function(){ return is_user_logged_in() && wp_verify_nonce($_REQUEST['_wpnonce'] ?? '', 'wp_rest'); },
+      'callback'=>[__CLASS__,'chat_send'],
+    ]);
+    register_rest_route('aztra/v1','/chat/list',[
+      'methods'=>'GET',
+      'permission_callback'=>function(){ return is_user_logged_in() && wp_verify_nonce($_REQUEST['_wpnonce'] ?? '', 'wp_rest'); },
+      'callback'=>[__CLASS__,'chat_list'],
+    ]);
   }
 
   public static function settings(){
@@ -70,6 +87,10 @@ class Aztra_REST {
     $ts = (new DateTime('now',$tz))->format('d/m/Y H:i:s');
 
     $payload = [
+      'title'=> sanitize_text_field($req['title'] ?? ''),
+      'description'=> sanitize_text_field($req['description'] ?? ''),
+      'tags'=> sanitize_text_field($req['tags'] ?? ''),
+      'reference_url'=> esc_url_raw($req['reference_url'] ?? ''),
       'animal'=> sanitize_text_field($req['animal'] ?? ''),
       'scenario'=> sanitize_text_field($req['scenario'] ?? ''),
       'time_of_day'=> sanitize_text_field($req['time_of_day'] ?? ''),
@@ -95,5 +116,52 @@ class Aztra_REST {
       Aztra_CPT::store_request($payload, $json);
     }
     return ['ok'=>true,'data'=>$json];
+  }
+
+  public static function save_webhook($req){
+    $url = esc_url_raw($req['url'] ?? '');
+    if(!$url) return new WP_Error('bad_request','Missing URL',['status'=>400]);
+    $opts = self::settings();
+    $opts['webhook'] = $url;
+    update_option('aztra_g_settings',$opts,false);
+    return ['ok'=>true];
+  }
+
+  private static function chat_key(){
+    return 'aztra_chat_'.get_current_user_id();
+  }
+
+  public static function chat_list($req){
+    $messages = get_user_meta(get_current_user_id(), self::chat_key(), true);
+    if(!is_array($messages)) $messages = [];
+    return ['messages'=>$messages];
+  }
+
+  public static function chat_send($req){
+    $msg = sanitize_text_field($req['message'] ?? '');
+    $files = [];
+    if(!empty($_FILES['files'])){
+      $arr = $_FILES['files'];
+      foreach($arr['name'] as $i=>$name){
+        if(!$arr['size'][$i]) continue;
+        $file = [
+          'name'=>$name,
+          'type'=>$arr['type'][$i],
+          'tmp_name'=>$arr['tmp_name'][$i],
+          'error'=>$arr['error'][$i],
+          'size'=>$arr['size'][$i],
+        ];
+        $upload = wp_handle_upload($file, ['test_form'=>false]);
+        if(empty($upload['error'])){
+          $files[] = ['url'=>$upload['url'], 'type'=>$upload['type']];
+        }
+      }
+    }
+    $entry = ['role'=>'user','text'=>$msg,'files'=>$files,'ts'=>time()];
+    $messages = get_user_meta(get_current_user_id(), self::chat_key(), true);
+    if(!is_array($messages)) $messages = [];
+    $messages[] = $entry;
+    update_user_meta(get_current_user_id(), self::chat_key(), $messages);
+    return ['ok'=>true,'message'=>$entry];
   }
 }

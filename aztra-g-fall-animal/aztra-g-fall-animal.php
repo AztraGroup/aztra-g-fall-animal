@@ -70,6 +70,7 @@ class AztraG_Fall_Animal_Plugin {
     wp_register_style('aztra-app', AZTRA_URL.'assets/app.css', [], AZTRA_VER);
     wp_register_style('aztra-el', AZTRA_URL.'assets/elementor.css', [], AZTRA_VER);
     wp_register_script('aztra-app', AZTRA_URL.'assets/app.js', ['jquery'], AZTRA_VER, true);
+    wp_register_script('aztra-chat', AZTRA_URL.'assets/chat.js', ['aztra-app'], AZTRA_VER, true);
     wp_register_script('aztra-el', AZTRA_URL.'assets/elementor.js', [], AZTRA_VER, true);
     wp_localize_script('aztra-app','AZTRA_CFG',[
       'rest'=> esc_url_raw( rest_url('aztra/v1') ),
