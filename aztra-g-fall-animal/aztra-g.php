@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Aztra G Fall Animal
- * Description: Hub multiuser with Elementor widgets, shortcodes and secure proxy to n8n workflow (Animal Flight). Includes Elementor "Aztra" top tab with background animations.
+ * Plugin Name: Aztra G
+ * Description: Hub multiuser with Elementor widgets, shortcodes and secure proxy to n8n workflow. Includes Elementor "Aztra" top tab with background animations.
  * Version: 1.2.0
  * Author: Aztragroup
  * Text Domain: aztra
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) exit;
 // ---- Requirements ----
 if (version_compare(PHP_VERSION, '7.4', '<')) {
   add_action('admin_notices', function(){
-    echo '<div class="notice notice-error"><p><b>Aztra G Fall Animal:</b> requires PHP 7.4 or higher.</p></div>';
+    echo '<div class="notice notice-error"><p><b>Aztra G:</b> requires PHP 7.4 or higher.</p></div>';
   });
   return;
 }
@@ -42,11 +42,14 @@ aztra_require('includes/class-aztra-rest.php');
 aztra_require('includes/class-aztra-shortcodes.php');
 aztra_require('includes/class-aztra-elementor.php');
 
-class AztraG_Fall_Animal_Plugin {
+class AztraG_Plugin {
   public function __construct(){
     if (class_exists('Aztra_Activator')) {
       register_activation_hook(__FILE__, ['Aztra_Activator','activate']);
     }
+    add_action('plugins_loaded', function(){
+      load_plugin_textdomain('aztra', false, dirname(plugin_basename(__FILE__)).'/languages');
+    });
     add_action('init', function(){
       if (class_exists('Aztra_CPT')) Aztra_CPT::register();
       if (class_exists('Aztra_Shortcodes')) Aztra_Shortcodes::register();
@@ -71,6 +74,7 @@ class AztraG_Fall_Animal_Plugin {
     wp_register_style('aztra-el', AZTRA_URL.'assets/elementor.css', [], AZTRA_VER);
     wp_register_script('aztra-app', AZTRA_URL.'assets/app.js', ['jquery'], AZTRA_VER, true);
     wp_register_script('aztra-chat', AZTRA_URL.'assets/chat.js', ['aztra-app'], AZTRA_VER, true);
+    wp_register_script('aztra-tutorials', AZTRA_URL.'assets/tutorials.js', ['aztra-app'], AZTRA_VER, true);
     wp_register_script('aztra-el', AZTRA_URL.'assets/elementor.js', [], AZTRA_VER, true);
     wp_localize_script('aztra-app','AZTRA_CFG',[
       'rest'=> esc_url_raw( rest_url('aztra/v1') ),
@@ -84,4 +88,4 @@ class AztraG_Fall_Animal_Plugin {
     wp_enqueue_script('aztra-editor', AZTRA_URL.'assets/editor.js', ['jquery','elementor-editor'], AZTRA_VER, true);
   }
 }
-new AztraG_Fall_Animal_Plugin();
+new AztraG_Plugin();
