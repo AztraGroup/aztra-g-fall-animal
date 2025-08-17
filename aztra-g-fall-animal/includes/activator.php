@@ -21,23 +21,34 @@ class Aztra_Activator {
         'terms_template'=>"These Terms of Use govern the site operated by {company_name}. For support: {contact_email}.",
       ], false);
     }
-    // create pages with shortcodes
+    // create pages with shortcodes and store their IDs
     $pages = [
-      'Aztra — Home'           => '[aztra_home]',
-      'Aztra — Chat'           => '[aztra_chat]',
-      'Aztra — Login'          => '[aztra_login]',
-      'Aztra — Signup'         => '[aztra_signup]',
-      'Aztra — App'            => '[aztra_builder]',
-      'Aztra — Gallery'        => '[aztra_gallery]',
-      'Aztra — Privacy Policy' => '[aztra_privacy]',
-      'Aztra — Terms of Use'   => '[aztra_terms]',
-      'Aztra — Commands'       => '[aztra_commands]',
-      'Aztra — Tutoriais'      => '[aztra_tutorials]',
+      'Aztra — Home'        => '[aztra_home]',
+      'Aztra — Chat'        => '[aztra_chat]',
+      'Aztra — Builder'     => '[aztra_builder]',
+      'Gere Seu Agente'     => '[aztra_agent]',
+      'Aztra — Galeria'     => '[aztra_gallery]',
+      'Aztra — Tutoriais'   => '[aztra_tutorials]',
+      'Política de Privacidade' => '[aztra_privacy]',
+      'Termos de Uso'           => '[aztra_terms]',
+      'Aztra — Commands'    => '[aztra_commands]',
     ];
+
+    $ids = [];
     foreach($pages as $title=>$sc){
-      if(!get_page_by_title($title)){
-        wp_insert_post(['post_title'=>$title,'post_status'=>'publish','post_type'=>'page','post_content'=>$sc]);
+      $page = get_page_by_title($title);
+      if(!$page){
+        $page_id = wp_insert_post([
+          'post_title'   => $title,
+          'post_status'  => 'publish',
+          'post_type'    => 'page',
+          'post_content' => $sc,
+        ]);
+      } else {
+        $page_id = $page->ID;
       }
+      $ids[$title] = (int)$page_id;
     }
+    update_option('aztra_page_ids', $ids, false);
   }
 }

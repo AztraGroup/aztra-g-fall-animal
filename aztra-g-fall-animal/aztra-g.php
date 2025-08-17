@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Aztra G Fall Animal
- * Description: Hub multiuser with Elementor widgets, shortcodes and secure proxy to n8n workflow (Animal Flight). Includes Elementor "Aztra" top tab with background animations.
+ * Plugin Name: Aztra G
+ * Description: Hub multiuser with Elementor widgets, shortcodes and secure proxy to n8n workflow. Includes Elementor "Aztra" top tab with background animations.
  * Version: 1.2.0
  * Author: Aztragroup
  * Text Domain: aztra
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) exit;
 // ---- Requirements ----
 if (version_compare(PHP_VERSION, '7.4', '<')) {
   add_action('admin_notices', function(){
-    echo '<div class="notice notice-error"><p><b>Aztra G Fall Animal:</b> requires PHP 7.4 or higher.</p></div>';
+    echo '<div class="notice notice-error"><p><b>Aztra G:</b> requires PHP 7.4 or higher.</p></div>';
   });
   return;
 }
@@ -42,7 +42,7 @@ aztra_require('includes/class-aztra-rest.php');
 aztra_require('includes/class-aztra-shortcodes.php');
 aztra_require('includes/class-aztra-elementor.php');
 
-class AztraG_Fall_Animal_Plugin {
+class AztraG_Plugin {
   public function __construct(){
     if (class_exists('Aztra_Activator')) {
       register_activation_hook(__FILE__, ['Aztra_Activator','activate']);
@@ -85,4 +85,4 @@ class AztraG_Fall_Animal_Plugin {
     wp_enqueue_script('aztra-editor', AZTRA_URL.'assets/editor.js', ['jquery','elementor-editor'], AZTRA_VER, true);
   }
 }
-new AztraG_Fall_Animal_Plugin();
+new AztraG_Plugin();

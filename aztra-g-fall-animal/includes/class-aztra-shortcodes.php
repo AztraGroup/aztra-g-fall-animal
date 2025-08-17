@@ -9,6 +9,7 @@ class Aztra_Shortcodes {
     add_shortcode('aztra_gallery', [__CLASS__, 'gallery']);
     add_shortcode('aztra_home', [__CLASS__, 'home']);
     add_shortcode('aztra_chat', [__CLASS__, 'chat']);
+    add_shortcode('aztra_agent', [__CLASS__, 'agent']);
     add_shortcode('aztra_privacy', [__CLASS__, 'privacy']);
     add_shortcode('aztra_terms', [__CLASS__, 'terms']);
     add_shortcode('aztra_commands', [__CLASS__, 'commands']);
@@ -20,7 +21,13 @@ class Aztra_Shortcodes {
     <header class="az-header">
       <div class="az-brand">Aztra&nbsp;G</div>
       <nav class="az-nav">
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Home') ) ); ?>">Home</a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Chat') ) ); ?>">Chat</a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Builder') ) ); ?>">Builder</a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Galeria') ) ); ?>">Galeria</a>
         <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Tutoriais') ) ); ?>">Tutoriais</a>
+        <a class="az-btn" href="<?php echo esc_url( admin_url('admin.php?page=aztra-settings') ); ?>">Settings</a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Commands') ) ); ?>">Commands</a>
         <button class="az-btn" data-aztra-act="toggle-theme">Tema</button>
       </nav>
     </header>
@@ -30,7 +37,10 @@ class Aztra_Shortcodes {
   private static function render_footer(){
     ?>
     <footer class="az-footer">
+      <a href="<?php echo esc_url( get_permalink( get_page_by_title('Política de Privacidade') ) ); ?>">Política de Privacidade</a>
+      <a href="<?php echo esc_url( get_permalink( get_page_by_title('Termos de Uso') ) ); ?>">Termos de Uso</a>
       <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Tutoriais') ) ); ?>">Tutoriais</a>
+      <a href="#">Suporte</a>
     </footer>
     <?php
   }
@@ -48,7 +58,7 @@ class Aztra_Shortcodes {
         </form>
         <p>Don't have an account? <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Signup') ) ); ?>">Create account</a></p>
       <?php else: ?>
-        <p>You're logged in. <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — App') ) ); ?>">Open App</a></p>
+        <p>You're logged in. <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Builder') ) ); ?>">Open Builder</a></p>
       <?php endif; ?>
     </div>
     <?php return ob_get_clean();
@@ -168,7 +178,7 @@ class Aztra_Shortcodes {
     return ob_get_clean();
   }
 
-    public static function chat($atts=[]){
+  public static function chat($atts=[]){
       if(!is_user_logged_in()){ return '<p>Please log in to use the chat.</p>'; }
       wp_enqueue_style('aztra-app'); wp_enqueue_script('aztra-app'); wp_enqueue_script('aztra-chat');
     ob_start();
@@ -190,6 +200,17 @@ class Aztra_Shortcodes {
     </div>
     <?php self::render_footer();
     return ob_get_clean();
+  }
+
+  public static function agent($atts = []){
+    wp_enqueue_style('aztra-app');
+    wp_enqueue_script('aztra-app');
+    ob_start(); self::render_header(); ?>
+    <div class="az-agent">
+      <h2><?php echo esc_html__('Gere Seu Agente','aztra'); ?></h2>
+      <p><?php echo esc_html__('Selecione um template para gerar um webhook de agente.','aztra'); ?></p>
+    </div>
+    <?php self::render_footer(); return ob_get_clean();
   }
 
   private static function replace_placeholders($text){
