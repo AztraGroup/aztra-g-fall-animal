@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Aztra G\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: \n"
+
+msgid "Home"
+msgstr ""
+
+msgid "Chat"
+msgstr ""
+
+msgid "Builder"
+msgstr ""
+
+msgid "Galeria"
+msgstr ""
+
+msgid "Tutoriais"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Commands"
+msgstr ""
+
+msgid "Increase font"
+msgstr ""
+
+msgid "Decrease font"
+msgstr ""
+
+msgid "Alto contraste"
+msgstr ""
+
+msgid "Tema"
+msgstr ""
+
+msgid "Idioma"
+msgstr ""
+
+msgid "Política de Privacidade"
+msgstr ""
+
+msgid "Termos de Uso"
+msgstr ""
+
+msgid "Suporte"
+msgstr ""
+
+msgid "utilize o webhook teste para testar"
+msgstr ""
+
+msgid "Salvar Modelo e iniciar conversa"
+msgstr ""
+
+msgid "Novo chat"
+msgstr ""
+
+msgid "Novo Projeto"
+msgstr ""
+
+msgid "Projeto Aztra G"
+msgstr ""
+
+msgid "Configurações de usuário"
+msgstr ""
+
+msgid "Digite sua mensagem..."
+msgstr ""
+
+msgid "Enviar"
+msgstr ""
+
+msgid "Introdução"
+msgstr ""
+
+msgid "Exemplos"
+msgstr ""
+
+msgid "FAQ"
+msgstr ""
+
+msgid "Bem-vindo aos tutoriais do Aztra G."
+msgstr ""
+
+msgid "Perguntas frequentes serão adicionadas aqui."
+msgstr ""

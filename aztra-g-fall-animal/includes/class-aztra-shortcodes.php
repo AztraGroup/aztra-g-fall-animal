@@ -9,9 +9,11 @@ class Aztra_Shortcodes {
     add_shortcode('aztra_gallery', [__CLASS__, 'gallery']);
     add_shortcode('aztra_home', [__CLASS__, 'home']);
     add_shortcode('aztra_chat', [__CLASS__, 'chat']);
+    add_shortcode('aztra_agent', [__CLASS__, 'agent']);
     add_shortcode('aztra_privacy', [__CLASS__, 'privacy']);
     add_shortcode('aztra_terms', [__CLASS__, 'terms']);
     add_shortcode('aztra_commands', [__CLASS__, 'commands']);
+    add_shortcode('aztra_tutorials', [__CLASS__, 'tutorials']);
   }
 
   private static function render_header(){
@@ -19,7 +21,23 @@ class Aztra_Shortcodes {
     <header class="az-header">
       <div class="az-brand">Aztra&nbsp;G</div>
       <nav class="az-nav">
-        <button class="az-btn" data-aztra-act="toggle-theme">Tema</button>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Home') ) ); ?>"><?php echo esc_html__('Home','aztra'); ?></a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Chat') ) ); ?>"><?php echo esc_html__('Chat','aztra'); ?></a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Builder') ) ); ?>"><?php echo esc_html__('Builder','aztra'); ?></a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Galeria') ) ); ?>"><?php echo esc_html__('Galeria','aztra'); ?></a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Tutoriais') ) ); ?>"><?php echo esc_html__('Tutoriais','aztra'); ?></a>
+        <a class="az-btn" href="<?php echo esc_url( admin_url('admin.php?page=aztra-settings') ); ?>"><?php echo esc_html__('Settings','aztra'); ?></a>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Commands') ) ); ?>"><?php echo esc_html__('Commands','aztra'); ?></a>
+        <button class="az-btn" data-aztra-act="font-inc" aria-label="<?php echo esc_attr__('Increase font','aztra'); ?>">A+</button>
+        <button class="az-btn" data-aztra-act="font-dec" aria-label="<?php echo esc_attr__('Decrease font','aztra'); ?>">A-</button>
+        <button class="az-btn" data-aztra-act="toggle-contrast"><?php echo esc_html__('Alto contraste','aztra'); ?></button>
+        <button class="az-btn" data-aztra-act="toggle-theme"><?php echo esc_html__('Tema','aztra'); ?></button>
+        <select class="az-btn" data-aztra-act="set-lang" aria-label="<?php echo esc_attr__('Idioma','aztra'); ?>">
+          <option value="pt_BR">PT</option>
+          <option value="en_US">EN</option>
+          <option value="es_ES">ES</option>
+          <option value="it_IT">IT</option>
+        </select>
       </nav>
     </header>
     <?php
@@ -28,7 +46,10 @@ class Aztra_Shortcodes {
   private static function render_footer(){
     ?>
     <footer class="az-footer">
-      <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Tutoriais') ) ); ?>">Tutoriais</a>
+      <a href="<?php echo esc_url( get_permalink( get_page_by_title('Política de Privacidade') ) ); ?>"><?php echo esc_html__('Política de Privacidade','aztra'); ?></a>
+      <a href="<?php echo esc_url( get_permalink( get_page_by_title('Termos de Uso') ) ); ?>"><?php echo esc_html__('Termos de Uso','aztra'); ?></a>
+      <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Tutoriais') ) ); ?>"><?php echo esc_html__('Tutoriais','aztra'); ?></a>
+      <a href="#"><?php echo esc_html__('Suporte','aztra'); ?></a>
     </footer>
     <?php
   }
@@ -46,7 +67,7 @@ class Aztra_Shortcodes {
         </form>
         <p>Don't have an account? <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Signup') ) ); ?>">Create account</a></p>
       <?php else: ?>
-        <p>You're logged in. <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — App') ) ); ?>">Open App</a></p>
+        <p>You're logged in. <a href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Builder') ) ); ?>">Open Builder</a></p>
       <?php endif; ?>
     </div>
     <?php return ob_get_clean();
@@ -158,36 +179,47 @@ class Aztra_Shortcodes {
     ob_start();
     self::render_header(); ?>
     <div class="az-home">
-      <p>utilize o webhook teste para testar</p>
+      <p><?php echo esc_html__('utilize o webhook teste para testar','aztra'); ?></p>
       <pre id="aztra-preview">{}</pre>
-      <button class="az-btn az-primary" data-aztra-act="open-save-model">Salvar Modelo e iniciar conversa</button>
+      <button class="az-btn az-primary" data-aztra-act="open-save-model"><?php echo esc_html__('Salvar Modelo e iniciar conversa','aztra'); ?></button>
     </div>
     <?php self::render_footer();
     return ob_get_clean();
   }
 
-    public static function chat($atts=[]){
+  public static function chat($atts=[]){
       if(!is_user_logged_in()){ return '<p>Please log in to use the chat.</p>'; }
       wp_enqueue_style('aztra-app'); wp_enqueue_script('aztra-app'); wp_enqueue_script('aztra-chat');
     ob_start();
     self::render_header(); ?>
     <div class="az-chat-layout">
       <aside class="az-sidebar">
-        <button class="az-btn" data-aztra-act="new-chat">Novo chat</button>
-        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Gallery') ) ); ?>">Galeria</a>
-        <button class="az-btn" data-aztra-act="new-project">Novo Projeto</button>
-        <div class="az-label">Projeto Aztra G</div>
-        <button class="az-btn" data-aztra-act="user-settings">Configurações de usuário</button>
+        <button class="az-btn" data-aztra-act="new-chat"><?php echo esc_html__('Novo chat','aztra'); ?></button>
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Galeria') ) ); ?>"><?php echo esc_html__('Galeria','aztra'); ?></a>
+        <button class="az-btn" data-aztra-act="new-project"><?php echo esc_html__('Novo Projeto','aztra'); ?></button>
+        <div class="az-label"><?php echo esc_html__('Projeto Aztra G','aztra'); ?></div>
+        <button class="az-btn" data-aztra-act="user-settings"><?php echo esc_html__('Configurações de usuário','aztra'); ?></button>
       </aside>
       <section class="az-chat">
         <div id="aztra-chat-log" class="az-chat-log"></div>
         <div class="az-field"><input id="aztra-chat-file" type="file" multiple></div>
-        <div class="az-field"><textarea id="aztra-chat-message" rows="3" placeholder="Digite sua mensagem..."></textarea></div>
-        <button class="az-btn az-primary" data-aztra-act="send-chat">Enviar</button>
+        <div class="az-field"><textarea id="aztra-chat-message" rows="3" placeholder="<?php echo esc_attr__('Digite sua mensagem...','aztra'); ?>"></textarea></div>
+        <button class="az-btn az-primary" data-aztra-act="send-chat"><?php echo esc_html__('Enviar','aztra'); ?></button>
       </section>
     </div>
     <?php self::render_footer();
     return ob_get_clean();
+  }
+
+  public static function agent($atts = []){
+    wp_enqueue_style('aztra-app');
+    wp_enqueue_script('aztra-app');
+    ob_start(); self::render_header(); ?>
+    <div class="az-agent">
+      <h2><?php echo esc_html__('Gere Seu Agente','aztra'); ?></h2>
+      <p><?php echo esc_html__('Selecione um template para gerar um webhook de agente.','aztra'); ?></p>
+    </div>
+    <?php self::render_footer(); return ob_get_clean();
   }
 
   private static function replace_placeholders($text){
@@ -229,6 +261,30 @@ class Aztra_Shortcodes {
     <div class="az-commands">
       <h2>Aztra Commands</h2>
       <p>Customize your app and functions here.</p>
+    </div>
+    <?php self::render_footer(); return ob_get_clean();
+  }
+
+  public static function tutorials($atts=[]){
+    wp_enqueue_style('aztra-app');
+    wp_enqueue_script('aztra-app');
+    wp_enqueue_script('aztra-tutorials');
+    ob_start(); self::render_header(); ?>
+    <div class="az-tutorials">
+      <nav class="az-tabs-nav">
+        <button class="az-btn" data-aztra-tab="intro"><?php echo esc_html__('Introdução','aztra'); ?></button>
+        <button class="az-btn" data-aztra-tab="examples"><?php echo esc_html__('Exemplos','aztra'); ?></button>
+        <button class="az-btn" data-aztra-tab="faq"><?php echo esc_html__('FAQ','aztra'); ?></button>
+      </nav>
+      <div id="intro" class="az-tab">
+        <p><?php echo esc_html__('Bem-vindo aos tutoriais do Aztra G.','aztra'); ?></p>
+      </div>
+      <div id="examples" class="az-tab">
+        <pre><code>echo "Aztra";</code></pre>
+      </div>
+      <div id="faq" class="az-tab">
+        <p><?php echo esc_html__('Perguntas frequentes serão adicionadas aqui.','aztra'); ?></p>
+      </div>
     </div>
     <?php self::render_footer(); return ob_get_clean();
   }

@@ -11,8 +11,30 @@
     localStorage.setItem('aztra_theme', mode);
   };
   const toggleTheme = ()=>setTheme(document.body.classList.contains('az-theme-dark')?'light':'dark');
+
+  const setFont = (size)=>{
+    document.documentElement.style.setProperty('--az-font-size', size+'px');
+    localStorage.setItem('aztra_font', size);
+  };
+  const changeFont = (d)=>{
+    const cur = parseFloat(localStorage.getItem('aztra_font')||'16');
+    const next = Math.min(Math.max(cur + d, 12), 24);
+    setFont(next);
+  };
+  const setContrast = (c)=>{
+    document.documentElement.style.setProperty('--az-contrast', c);
+    localStorage.setItem('aztra_contrast', c);
+  };
+  const toggleContrast = ()=>{
+    const cur = localStorage.getItem('aztra_contrast')||'1';
+    setContrast(cur==='1' ? '2' : '1');
+  };
+
   setTheme(localStorage.getItem('aztra_theme')||'light');
-  window.Aztra = {api,setTheme,toggleTheme};
+  setFont(parseFloat(localStorage.getItem('aztra_font')||'16'));
+  setContrast(localStorage.getItem('aztra_contrast')||'1');
+
+  window.Aztra = {api,setTheme,toggleTheme,changeFont,toggleContrast};
 
   const previewEl = qs('#aztra-preview');
   if(previewEl){
@@ -44,6 +66,9 @@
     }
 
     if(act==='toggle-theme') toggleTheme();
+    if(act==='font-inc') changeFont(2);
+    if(act==='font-dec') changeFont(-2);
+    if(act==='toggle-contrast') toggleContrast();
 
     if(act==='open-save-model') openWebhookModal();
 
@@ -56,6 +81,16 @@
         await api('/webhook',{method:'POST',body:new URLSearchParams({url})});
       }
       window.location.href = AZTRA_CFG.chat_url || '/';
+    }
+  });
+
+  document.addEventListener('change', e=>{
+    const el = e.target;
+    if(el.dataset.aztraAct==='set-lang'){
+      const lang = el.value;
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      window.location.href = url.toString();
     }
   });
 

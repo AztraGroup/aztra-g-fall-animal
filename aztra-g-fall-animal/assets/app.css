@@ -7,6 +7,8 @@
   --az-input-bd:#dfe6f0;
   --az-btn-bg:linear-gradient(135deg,#2563eb,#7c3aed);
   --az-gap:16px;
+  --az-font-size:16px;
+  --az-contrast:1;
 }
 .az-theme-dark{
   --az-bg:#0e1116;
@@ -17,7 +19,7 @@
   --az-input-bd:#263041;
   --az-btn-bg:linear-gradient(135deg,#7c3aed,#06b6d4);
 }
-body{background:var(--az-bg);color:var(--az-text);font-family:Inter,system-ui,sans-serif;}
+body{background:var(--az-bg);color:var(--az-text);font-family:Inter,system-ui,sans-serif;font-size:var(--az-font-size);filter:contrast(var(--az-contrast));}
 .az-header,.az-footer{padding:var(--az-gap);}
 .az-header{display:flex;justify-content:space-between;align-items:center;}
 .az-nav{display:flex;gap:8px;}
@@ -30,6 +32,7 @@ body{background:var(--az-bg);color:var(--az-text);font-family:Inter,system-ui,sa
 .az-chat-msg .az-file{display:block;margin-top:6px;}
 .az-btn{background:#2b34ff;color:#fff;border:none;border-radius:10px;padding:10px 14px;cursor:pointer;}
 .az-btn.az-primary{background:var(--az-btn-bg);}
+.az-btn:focus,.az-field input:focus,.az-field select:focus,.az-field textarea:focus{outline:2px solid currentColor;outline-offset:2px;}
 .az-field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
 .az-field input,.az-field select,.az-field textarea{background:var(--az-input-bg);color:var(--az-text);border:1px solid var(--az-input-bd);border-radius:10px;padding:10px;}
 .az-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000;}
@@ -39,3 +42,6 @@ body{background:var(--az-bg);color:var(--az-text);font-family:Inter,system-ui,sa
 .az-assets{display:flex;flex-wrap:wrap;gap:12px;}
 .az-thumb{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--az-input-bd);box-shadow:0 4px 16px rgba(0,0,0,.25);}
 pre{background:var(--az-input-bg);color:var(--az-text);padding:12px;border-radius:10px;max-height:280px;overflow:auto;}
+.az-tabs-nav{display:flex;gap:8px;margin-bottom:var(--az-gap);}
+.az-tab{display:none;}
+.az-tab.active{display:block;}
