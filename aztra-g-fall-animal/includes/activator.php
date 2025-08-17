@@ -19,6 +19,8 @@ class Aztra_Activator {
     }
     // create pages with shortcodes
     $pages = [
+      'Aztra — Home'   => '[aztra_home]',
+      'Aztra — Chat'   => '[aztra_chat]',
       'Aztra — Login'  => '[aztra_login]',
       'Aztra — Signup' => '[aztra_signup]',
       'Aztra — App'    => '[aztra_builder]',

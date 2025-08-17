@@ -14,13 +14,20 @@ class Aztra_Admin {
     ?>
     <div class="wrap">
       <h1>Aztra G — Dashboard</h1>
-      <p>Use shortcodes or Elementor widgets to build pages.</p>
+      <p>Use the generated pages or shortcodes to build your front end.</p>
       <ul>
         <li><b>Total Requests:</b> <?php echo intval($count->publish ?? 0); ?></li>
-        <li><a href="<?php echo admin_url('edit.php?post_type=aztra_request'); ?>">View all</a></li>
-        <li><a href="<?php echo admin_url('admin.php?page=aztra-settings'); ?>">Settings</a></li>
+        <li><a href="<?php echo admin_url('edit.php?post_type=aztra_request'); ?>">View all requests</a></li>
+        <li><a href="<?php echo admin_url('admin.php?page=aztra-settings'); ?>">Plugin settings</a></li>
       </ul>
-      <p>Shortcodes: <code>[aztra_login]</code> <code>[aztra_signup]</code> <code>[aztra_builder]</code> <code>[aztra_gallery]</code></p>
+      <p>Shortcodes:</p>
+      <ul>
+        <li><code>[aztra_home]</code> – landing with preview and webhook modal</li>
+        <li><code>[aztra_chat]</code> – two-column chat interface</li>
+        <li><code>[aztra_builder]</code> – model builder form</li>
+        <li><code>[aztra_gallery]</code> – saved responses for the user</li>
+        <li><code>[aztra_login]</code> / <code>[aztra_signup]</code> – basic auth pages</li>
+      </ul>
     </div>
     <?php
   }
