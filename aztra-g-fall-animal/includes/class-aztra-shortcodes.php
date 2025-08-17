@@ -12,6 +12,7 @@ class Aztra_Shortcodes {
     add_shortcode('aztra_privacy', [__CLASS__, 'privacy']);
     add_shortcode('aztra_terms', [__CLASS__, 'terms']);
     add_shortcode('aztra_commands', [__CLASS__, 'commands']);
+    add_shortcode('aztra_tutorials', [__CLASS__, 'tutorials']);
   }
 
   private static function render_header(){
@@ -19,6 +20,7 @@ class Aztra_Shortcodes {
     <header class="az-header">
       <div class="az-brand">Aztra&nbsp;G</div>
       <nav class="az-nav">
+        <a class="az-btn" href="<?php echo esc_url( get_permalink( get_page_by_title('Aztra — Tutoriais') ) ); ?>">Tutoriais</a>
         <button class="az-btn" data-aztra-act="toggle-theme">Tema</button>
       </nav>
     </header>
@@ -229,6 +231,30 @@ class Aztra_Shortcodes {
     <div class="az-commands">
       <h2>Aztra Commands</h2>
       <p>Customize your app and functions here.</p>
+    </div>
+    <?php self::render_footer(); return ob_get_clean();
+  }
+
+  public static function tutorials($atts=[]){
+    wp_enqueue_style('aztra-app');
+    wp_enqueue_script('aztra-app');
+    wp_enqueue_script('aztra-tutorials');
+    ob_start(); self::render_header(); ?>
+    <div class="az-tutorials">
+      <nav class="az-tabs-nav">
+        <button class="az-btn" data-aztra-tab="intro"><?php echo esc_html__('Introdução','aztra'); ?></button>
+        <button class="az-btn" data-aztra-tab="examples"><?php echo esc_html__('Exemplos','aztra'); ?></button>
+        <button class="az-btn" data-aztra-tab="faq"><?php echo esc_html__('FAQ','aztra'); ?></button>
+      </nav>
+      <div id="intro" class="az-tab">
+        <p><?php echo esc_html__('Bem-vindo aos tutoriais do Aztra G.','aztra'); ?></p>
+      </div>
+      <div id="examples" class="az-tab">
+        <pre><code>echo "Aztra";</code></pre>
+      </div>
+      <div id="faq" class="az-tab">
+        <p><?php echo esc_html__('Perguntas frequentes serão adicionadas aqui.','aztra'); ?></p>
+      </div>
     </div>
     <?php self::render_footer(); return ob_get_clean();
   }

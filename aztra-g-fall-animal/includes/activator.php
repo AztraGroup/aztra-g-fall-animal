@@ -32,6 +32,7 @@ class Aztra_Activator {
       'Aztra — Privacy Policy' => '[aztra_privacy]',
       'Aztra — Terms of Use'   => '[aztra_terms]',
       'Aztra — Commands'       => '[aztra_commands]',
+      'Aztra — Tutoriais'      => '[aztra_tutorials]',
     ];
     foreach($pages as $title=>$sc){
       if(!get_page_by_title($title)){

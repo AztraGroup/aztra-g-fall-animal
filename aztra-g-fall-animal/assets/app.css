@@ -39,3 +39,6 @@ body{background:var(--az-bg);color:var(--az-text);font-family:Inter,system-ui,sa
 .az-assets{display:flex;flex-wrap:wrap;gap:12px;}
 .az-thumb{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--az-input-bd);box-shadow:0 4px 16px rgba(0,0,0,.25);}
 pre{background:var(--az-input-bg);color:var(--az-text);padding:12px;border-radius:10px;max-height:280px;overflow:auto;}
+.az-tabs-nav{display:flex;gap:8px;margin-bottom:var(--az-gap);}
+.az-tab{display:none;}
+.az-tab.active{display:block;}

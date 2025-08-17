@@ -9,10 +9,11 @@ WordPress plugin providing an interface to build and chat with Animal Flight mod
 - `[aztra_login]` and `[aztra_signup]` – basic authentication pages.
 - `[aztra_privacy]` and `[aztra_terms]` – render the Privacy Policy and Terms of Use from the settings.
 - `[aztra_commands]` – placeholder page for global commands and customisation.
+- `[aztra_tutorials]` – tabs with introduction, examples and FAQ.
 
 ## Setup
 
-1. Upload the plugin to your WordPress installation and activate it. Activation creates the pages **Aztra — Home**, **Chat**, **App**, **Gallery**, **Login**, **Signup**, **Privacy Policy**, **Terms of Use** and **Commands**.
+1. Upload the plugin to your WordPress installation and activate it. Activation creates the pages **Aztra — Home**, **Chat**, **App**, **Gallery**, **Login**, **Signup**, **Privacy Policy**, **Terms of Use**, **Commands** and **Tutoriais**.
 2. On first visit, go to **Aztra — Home** to preview the webhook response.
 3. Use **Salvar Modelo e iniciar conversa** to store your production webhook and open the chat.
 
