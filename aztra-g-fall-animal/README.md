@@ -4,9 +4,10 @@ WordPress plugin providing an interface to build and chat with models via an n8n
 
 ## Instalação
 
-1. Dentro deste diretório gere o pacote distribuível:
+1. Na raiz do repositório, entre no diretório do plugin e gere o pacote distribuível:
 
    ```bash
+   cd aztra-g-fall-animal/aztra-g-fall-animal
    zip -r aztra-g.zip .
    ```
 
@@ -71,10 +72,17 @@ php -l includes/class-aztra-shortcodes.php
 
 ### Build
 
-Para gerar um pacote distribuível execute:
+Para gerar um pacote distribuível a partir da raiz do repositório execute:
 
 ```bash
+cd aztra-g-fall-animal/aztra-g-fall-animal
 zip -r aztra-g.zip .
+```
+
+Ou simplesmente rode o script de build:
+
+```bash
+./build-zip.sh
 ```
 
 ---
