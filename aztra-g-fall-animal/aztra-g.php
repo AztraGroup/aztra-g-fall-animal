@@ -47,6 +47,9 @@ class AztraG_Plugin {
     if (class_exists('Aztra_Activator')) {
       register_activation_hook(__FILE__, ['Aztra_Activator','activate']);
     }
+    add_action('plugins_loaded', function(){
+      load_plugin_textdomain('aztra', false, dirname(plugin_basename(__FILE__)).'/languages');
+    });
     add_action('init', function(){
       if (class_exists('Aztra_CPT')) Aztra_CPT::register();
       if (class_exists('Aztra_Shortcodes')) Aztra_Shortcodes::register();
