@@ -1,0 +1,38 @@
+:root{
+  --az-bg:#f7f8fb;
+  --az-text:#0f172a;
+  --az-card-bg:#ffffff;
+  --az-card-color:#0f172a;
+  --az-input-bg:#f4f6fb;
+  --az-input-bd:#dfe6f0;
+  --az-btn-bg:linear-gradient(135deg,#2563eb,#7c3aed);
+  --az-gap:16px;
+}
+.az-theme-dark{
+  --az-bg:#0e1116;
+  --az-text:#e8edff;
+  --az-card-bg:#141925;
+  --az-card-color:#e8edff;
+  --az-input-bg:#0b0f18;
+  --az-input-bd:#263041;
+  --az-btn-bg:linear-gradient(135deg,#7c3aed,#06b6d4);
+}
+body{background:var(--az-bg);color:var(--az-text);font-family:Inter,system-ui,sans-serif;}
+.az-header,.az-footer{padding:var(--az-gap);}
+.az-header{display:flex;justify-content:space-between;align-items:center;}
+.az-nav{display:flex;gap:8px;}
+.az-home{text-align:center;padding:var(--az-gap);}
+.az-chat-layout{display:grid;grid-template-columns:200px 1fr;gap:var(--az-gap);}
+.az-sidebar{display:flex;flex-direction:column;gap:8px;}
+.az-chat-log{border:1px solid var(--az-input-bd);min-height:200px;padding:var(--az-gap);margin-bottom:var(--az-gap);overflow:auto;}
+.az-btn{background:#2b34ff;color:#fff;border:none;border-radius:10px;padding:10px 14px;cursor:pointer;}
+.az-btn.az-primary{background:var(--az-btn-bg);}
+.az-field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.az-field input,.az-field select,.az-field textarea{background:var(--az-input-bg);color:var(--az-text);border:1px solid var(--az-input-bd);border-radius:10px;padding:10px;}
+.az-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000;}
+.az-modal{background:var(--az-card-bg);color:var(--az-card-color);padding:var(--az-gap);border-radius:12px;max-width:400px;width:100%;}
+.az-row{display:flex;gap:8px;justify-content:flex-end;margin-top:var(--az-gap);}
+.az-card{background:var(--az-card-bg);color:var(--az-card-color);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.12);}
+.az-assets{display:flex;flex-wrap:wrap;gap:12px;}
+.az-thumb{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--az-input-bd);box-shadow:0 4px 16px rgba(0,0,0,.25);}
+pre{background:var(--az-input-bg);color:var(--az-text);padding:12px;border-radius:10px;max-height:280px;overflow:auto;}
